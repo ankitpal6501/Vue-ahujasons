@@ -28,7 +28,7 @@
 </template>
 <script>
 export default {
-    name:"Filter",
+    name:"Filters",
     props:{
         filters:{
             type:Array
@@ -100,16 +100,6 @@ export default {
     right: 0%;
     top: 1px;
 }
-/* #filters input{
-    margin: 0%;
-    width: 25px;
-    height: 22px;
-    margin-right: 10px;
-    margin-bottom: 15px;
-}
-#filters label{
-    font-size: 14px;
-} */
 /* custom filter */
 
 .container {

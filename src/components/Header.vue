@@ -48,7 +48,7 @@
 
   <!-- mobile header -->
   <div id="headermobile">
-        <button @click="openModal" id="dropbtn">
+        <button  id="dropbtn">
             <svg xmlns="http://www.w3.org/2000/svg" width="45px"
                 height="30.53015" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h8m-8 6h16" />
@@ -119,7 +119,7 @@ export default{
     margin-top: 60px;
 }
 #headertag{
-    margin-left: 40px;
+    margin-left: 60px;
 }
 #headertag a{
     position: relative;
@@ -160,6 +160,7 @@ export default{
     padding-left: 40px;
     margin: 15px;
     margin-left:40px;
+    margin-right: 0px;
 }
 #headermobile{
     display: none;

@@ -30,6 +30,9 @@ export default {
     justify-content: space-between;
     padding-bottom:20px ;
 }
+#datadisplay>*{
+    flex: 0 1 23%;
+}
 
 #p2{
     margin: 0;

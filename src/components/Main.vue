@@ -2,7 +2,8 @@
     <div id="main-container">
         <div id="main-top">
             <div id="heading">
-                <p id="p1">{{KurtaType}}</p>
+                <p id="p1">Women Pashmina Shawls</p>
+                <!-- <p id="p1">{{KurtaType}}</p> -->
                 <p id="p2">{{items}} items</p>
             </div>
             <div id="functionality-grp">
@@ -34,7 +35,7 @@
             <div v-if="showFilter" id="filter-type">
                 <div id="filter-count">
                     <p>Filters</p>
-                    <div v-if="selectedFiletrs!=[]"  v-on:click="clearFilter" id="choosen-filters"><span>Clear All</span>
+                    <div v-if="selectedFiletrs.length!==0"  v-on:click="clearFilter" id="choosen-filters"><span>Clear All</span>
                         <svg  xmlns="http://www.w3.org/2000/svg" height="18px"
                             width="30px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -51,7 +52,7 @@
     </div>
 </template>
 <script>
-import Filter from "../components/Filter.vue"
+import Filters from "../components/Filters.vue"
 import Mainbody from "../components/Mainbody.vue"
 import MainFooter from "../components/MainFooter.vue"
 export default{
@@ -68,11 +69,11 @@ export default{
             codekeyPair:"",
             sort_by:"",
             sort_dir:'desc',
-            pageNo:"1"
+            pageNo:"1",
         }
     },
     components:{
-        "Filter-array":Filter,
+        "Filter-array":Filters,
         Mainbody,
         MainFooter,
     },
@@ -140,10 +141,7 @@ export default{
                  sort_dir:this.sort_dir,
                  filter:this.codekeyPair
                })
-
-            //    window.location=url;
-            //   let url=`https://pim.wforwoman.com/pim/pimresponse.php/?service=category&store=1&url_key=top-wear-kurtas&page=${pageNo}&count=20&sort_by=${sort_by}&sort_dir=${this.sort_dir}&filter=${this.codekeyPair}`
-
+           
            const response1 = await fetch(url)
             if(response1.status==200)
             {

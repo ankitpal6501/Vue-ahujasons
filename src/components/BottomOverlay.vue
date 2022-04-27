@@ -1,14 +1,10 @@
 <template>
-    <div>
+     <div >
         
-            <div class="sortoverlay">
+            <div @click="outsideClick($event)" class="sortoverlay">
                 <div class="sortovery-inner">
                     <h1 class="sort-heading"> SORT BY</h1>
-                    <p>PRICE: LOW TO HIGH</p>
-                    <p>PRICE: HIGH TO LOW</p>
-                    <p>DISCOUNT</p>
-                    <p>POPULARITY</p>
-                    <p>NEWEST</p>
+                    <p @click="getSortedData(sortType.code)" v-for="sortType in sortTypes" :key="sortType.code">{{sortType.label}}</p>
                 </div>
             </div>
 
@@ -20,7 +16,7 @@
                       </svg>
                       SORT BY
                 </button>
-                <button class="mobile-filter">
+                <button @click="openfilters" class="mobile-filter">
                     <svg xmlns="http://www.w3.org/2000/svg" height="20px"
                     width="30px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7" />
@@ -31,14 +27,39 @@
     </div>
 </template>
 <script>
+import {bus} from "../main"
 export default {
     name:"BottomOverlay",
+    data(){
+        return{
+            sortTypes:[]
+        }
+    },
+    created(){
+        bus.$on("sortTypes",(data)=>{
+            this.sortTypes=data
+        })
+    },
     methods:{
+        openfilters(){
+            bus.$emit("openfilters")
+        },
+        getSortedData(sortType){
+            bus.$emit("updateSortedData",sortType)
+            this.handelSortModel()
+        },
+        outsideClick(event){
+           if (
+            event.target.matches(".product-sort") ||
+             !event.target.closest(".sortovery-inner")
+            ) {
+                 this.handelSortModel()
+             }
+        },
          handelSortModel(){
            
            if(document.querySelector('.sortoverlay').style.display!=="none")
             { 
-                console.log("hello");
                 if(document.querySelector('.sortoverlay').style.width==="100%")
                { 
                    document.querySelector('.sortoverlay').style.width="0%";
@@ -68,10 +89,7 @@ export default {
         z-index: 1;
         position: fixed;
         width: 100%;
-        height: 2%;
-        bottom: 0;
-        padding-top: 10px;
-        padding-bottom: 10px;
+        bottom: 0%;
         left: 0%;
     }
     .product-sort,.mobile-filter{
@@ -82,6 +100,7 @@ export default {
         width: 50%;
         border: none;
         background-color: #ffff;
+        height: 40px;
     }
     .product-sort svg{
         position: absolute;

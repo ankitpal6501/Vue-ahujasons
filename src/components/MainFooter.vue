@@ -1,20 +1,26 @@
 <template>
     <div id="mainfooter">
-        <p>Page 1 to {{pageCount}}</p>
+        <p>Page {{startFrom}} to {{perpage}}</p>
         <div id="page-btn">
-            <button id="clickable" v-for="i in pageCount" :key="i" @click="changePage(i)">{{i}}</button>
-            <!-- <button  id="next"><p>NEXT</p> 
+            <button class="clickable" v-for="i in getNumber(startFrom,perpage)" :key="i" @click="changePage(i)">{{i}}</button>
+            <button  id="next" @click="goNext"><p>NEXT</p> 
                 <svg xmlns="http://www.w3.org/2000/svg" width="12px" 
                 height="23px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
-            </button> -->
+            </button>
         </div>
     </div>
 </template>
 <script>
 export default {
     name:"MainFooter",
+    data(){
+        return{
+            startFrom:1,
+            perpage:6,
+        }
+    },
     props:{
         count:{
             type:Number
@@ -27,6 +33,17 @@ export default {
         }
     },
     methods:{
+        getNumber(start,stop){
+            return new Array(stop-start).fill(start).map((n,i)=>n+i);
+        },
+        goNext(){
+            if(this.perpage===this.pageCount){
+                return
+            }
+            this.startFrom=this.perpage
+            this.perpage=this.perpage+6
+            
+        },
         changePage(number){
             this.$emit("changePage",number)
         }
@@ -39,16 +56,18 @@ export default {
     position: relative;
     color: #0C0C0C;
     margin: 20px;
+    font-family: jostRegular;
+    font-size: 16px;
     margin-bottom: 60px;
     display:flex;
 
 }
 #page-btn{
-    display: block;
+    display: inherit;
     position: absolute;
-    left: 10%;
+    left: 45%;
 }
-#clickable{
+.clickable{
     background-color: white;
     padding: 10px;
     width: auto;
@@ -69,7 +88,7 @@ export default {
 #next svg{
     margin-left: 10px;
 }
-#clickable:hover{
+.clickable:hover{
     background-color: #4C0B36;
     color: #ffff;
 }

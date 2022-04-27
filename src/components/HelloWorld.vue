@@ -4,20 +4,26 @@
     <Main/>
     <Footer/>
     <BottomOverlay/>
+    <HeaderModel/>
+    <MobileFilter/>
   </div>
 </template>
 
 <script>
+import MobileFilter from "./MobileFilter.vue"
 import BottomOverlay from "./BottomOverlay.vue"
 import Header from "./Header.vue"
 import Footer from "./Footer.vue"
 import Main from "./Main.vue"
+import HeaderModel from "./HeaderModel.vue"
 export default {
   name: 'HelloWorld',
   components:{
     Header,
     Footer,Main,
-    BottomOverlay
+    BottomOverlay,
+    HeaderModel,
+    MobileFilter
   },
   props: {
     msg: String

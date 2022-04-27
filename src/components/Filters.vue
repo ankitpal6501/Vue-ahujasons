@@ -18,8 +18,6 @@
                             <input type="checkbox" :checked="checkStatus(option)" :id="option.value_key" :value="option.value_key">
                             <span class="checkmark"></span>
                         </label>
-                        <!-- <input type="checkbox" :checked="checkStatus(option)" :id="option.value_key" :value="option.value_key" 
-                        @change="updateProductList(option)"> <label :for="option.value_key">{{option.value}}</label> -->
                     </div>
                 </div>    
         </div>
@@ -84,6 +82,9 @@ export default {
 </script>
 <style scoped>
 #filter-lable{
+    margin: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
     font-family:JostSemibold;
     font-size: 16px;
     color: #303030;
@@ -98,14 +99,14 @@ export default {
 #filter-add{
      position: absolute;
     right: 0%;
-    top: 1px;
+    top: 15px;
 }
 /* custom filter */
 
 .container {
   display: block;
   position: relative;
-  padding-left: 35px;
+  padding-left: 30px;
   margin-bottom: 15px;
   cursor: pointer;
   font-family:JostSemibold;
@@ -129,10 +130,9 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  height: 20px;
-    width: 20px;
-    border: 1px solid #a5a1a1;
-    border-radius: 3px;
+  height: 16px;
+    width: 16px;
+    border: 1px solid #9b9797;
 }
 
 
@@ -152,11 +152,11 @@ export default {
 
 .container .checkmark:after {
   left: 5px;
-  top: 3px;
-  width: 5px;
-  height: 10px;
+  bottom: 4px;
+  width: 4px;
+  height: 9px;
   border: solid white;
-  border-width: 0 3px 3px 0;
+  border-width: 0 2px 2px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);

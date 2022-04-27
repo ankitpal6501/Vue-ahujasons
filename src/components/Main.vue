@@ -2,8 +2,8 @@
     <div id="main-container">
         <div id="main-top">
             <div id="heading">
-                <p id="p1">Women Pashmina Shawls</p>
-                <!-- <p id="p1">{{KurtaType}}</p> -->
+                <!-- <p id="p1">Women Pashmina Shawls</p> -->
+                <p id="p1">{{KurtaType}}</p>
                 <p id="p2">{{items}} items</p>
             </div>
             <div id="functionality-grp">
@@ -14,11 +14,13 @@
                     </button>
                 </div>
                 <div id="div2">
-                    <div v-for="option in selectedFiletrs" :key="option.value" id="selected-filetrs"><span>{{option.value}}</span>
-                        <svg v-on:click="stopFilter(option)" xmlns="http://www.w3.org/2000/svg" height="18px"
-                            width="30px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
+                    <div id="all-collected-filter">
+                        <div v-for="option in selectedFiletrs" :key="option.value" id="selected-filetrs"><span>{{option.value}}</span>
+                            <svg v-on:click="stopFilter(option)" xmlns="http://www.w3.org/2000/svg" height="18px"
+                                width="30px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </div>
                     </div>
                     
                     <select v-model="sort_by" @change="changeProduct(selectedFiletrs,sort_by,pageNo)" name="" id="btn2">
@@ -33,15 +35,13 @@
         </div>
         <div id="main-middel">
             <div v-if="showFilter" id="filter-type">
-                <div id="filter-count">
-                    <p>Filters</p>
                     <div v-if="selectedFiletrs.length!==0"  v-on:click="clearFilter" id="choosen-filters"><span>Clear All</span>
                         <svg  xmlns="http://www.w3.org/2000/svg" height="18px"
                             width="30px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </div>
-                </div>
+               
                 <Filter-array :filters="filterTypes" :selectedFiletrs="selectedFiletrs" v-on:updateProductList="changeProduct($event,'',pageNo)"/>
             </div> 
             <Mainbody :products="products"/>
@@ -55,6 +55,7 @@
 import Filters from "../components/Filters.vue"
 import Mainbody from "../components/Mainbody.vue"
 import MainFooter from "../components/MainFooter.vue"
+import {bus} from "../main"
 export default{
     name:"Main",
     data(){
@@ -77,8 +78,16 @@ export default{
         Mainbody,
         MainFooter,
     },
+    created(){
+        bus.$on("updateSortedData",(sort)=>{
+            this.changeProduct(this.selectedFiletrs,sort,this.pageNo)
+        })
+        bus.$on("updateFilters",(filterArray)=>{
+            this.changeProduct(filterArray,this.sort_by,this.pageNo)
+        })
+    },
     mounted(){
-        this.getData()
+        this.changeProduct(this.selectedFiletrs,this.sort_by,this.pageNo)
     },
     methods:{
         clearFilter(){
@@ -92,36 +101,22 @@ export default{
                 }
                 this.changeProduct(this.selectedFiletrs,'',this.pageNo)
         },
-       async getData()
+       async changeProduct(event,sort_by,pageNo)
        {
-            const response = await fetch("https://pim.wforwoman.com/pim/pimresponse.php/?service=category&store=1&url_key=top-wear-kurtas&page=1&count=20&sort_by=&sort_dir=desc&filter=");
-            if(response.status== 200){
-            const data = await response.json();
-            this.products=data.result.products
-            this.filterTypes=data.result.filters
-            this.sortTypes=[...data.result.sort,{code:'lth',label:'Price: Low to High'},{code:'htl',label:'Price: High to Low'}]
-            this.items=data.result.count
-            this.KurtaType=data.result.name
-            }else{
-                console.log(response.status, response.statusText);
-            }
-            this.sortTypes.splice(1,1);
-        },
-        async changeProduct(event,sort_by,pageNo){
             this.selectedFiletrs=event
              event.map((item)=>{
-                 let value=[...item.value].join("")
                 if(this.codekeyPair===""){
-                    let temp = (item.code + "-" + value);
+                    let temp = (item.code + "-" + [...item.value].join(""));
                     temp = temp.replace(/\s/g, "+");
                     this.codekeyPair=this.codekeyPair+temp
                 }
                else{
-                    let temp = (item.code + "-" + value)
+                    let temp = (item.code + "-" + [...item.value].join(""))
                     temp = temp.replace(/\s/g, "+");
                    this.codekeyPair=this.codekeyPair+`,` + temp
                }
             })
+            
             //  sorting products
 
             if(sort_by==='lth'){
@@ -131,8 +126,9 @@ export default{
                 sort_by='selling_price'
                 this.sort_dir='desc'
             }else this.sort_dir='desc'
-            let url='https://pim.wforwoman.com/pim/pimresponse.php/?'+ new URLSearchParams({ 
-                 service:'category',
+              
+             let params={
+                  service:'category',
                  store:'1',
                  url_key:'top-wear-kurtas',
                  page:pageNo,
@@ -140,19 +136,37 @@ export default{
                  sort_by:sort_by,
                  sort_dir:this.sort_dir,
                  filter:this.codekeyPair
-               })
-           
-           const response1 = await fetch(url)
-            if(response1.status==200)
-            {
-                const data1 = await response1.json();
-                this.products=data1.result.products
-                this.items=data1.result.count
-                this.KurtaType=data1.result.name
+              }
+              this.$router.push({
+                  query:{ service:'category',
+                 store:'1',
+                 url_key:'top-wear-kurtas',
+                 page:pageNo,
+                 count:'20',
+                 sort_by:sort_by,
+                 sort_dir:this.sort_dir,
+                 filter:this.codekeyPair}
+              })
+             let url='https://pim.wforwoman.com/pim/pimresponse.php/?'+ new URLSearchParams(params)
+            const response = await fetch(url);
+            if(response.status== 200){
+            const data = await response.json();
+            this.products=data.result.products
+            if(this.filterTypes.length===0){
+                this.filterTypes=data.result.filters
+                bus.$emit("filters",this.filterTypes)}
+            if(this.sortTypes.length===0){
+                this.sortTypes=[...data.result.sort,{code:'lth',label:'Price: Low to High'},{code:'htl',label:'Price: High to Low'}]
+                this.sortTypes.splice(1,1);
+                bus.$emit("sortTypes",this.sortTypes)
+                }
+            this.items=data.result.count
+            this.KurtaType=data.result.name
             }else{
-                console.log(response1.status, response1.statusText);
+                console.log(response.status, response.statusText);
             }
             this.codekeyPair=""
+            
         },
         hideFilter(){
              if(this.showFilter!==false){
@@ -200,7 +214,9 @@ export default{
 #p2{ 
     font-size: 18px;
     padding: 0;
+    opacity: 0.7;
     margin: 0;
+    margin-top: 5px;
     font-family:JostRegular;
 }
 #functionality-grp{
@@ -216,8 +232,7 @@ export default{
 }
 #div1{
     margin-left: 20px;
-    margin-right:20px;
-    width: 20%;
+    width: 18%;
     }
 #btn{
     display: inherit;
@@ -240,15 +255,22 @@ export default{
     right: 5%;
     top: 0%;
 }
+#all-collected-filter{
+    display: flex;
+    flex-wrap: wrap;
+    width: 75%;
+}
 #div2{
   margin-right: 20px;
-  width: 80%;
+  width: 82%;
   position: relative;
-  display: inherit;
+  display: flex;
   align-items: center;
 }
 #selected-filetrs{
     display: inherit;
+    margin-right:5px;
+    margin-bottom: 4px;
     border-radius: 18px;
     height: 25px;
     width: auto;
@@ -263,7 +285,7 @@ export default{
     font-size: 14px;
 }
  #btn2{
-     width: 250px;
+     width: 25%;
      height: 55px;
      border: 1px solid rgb(214, 211, 211);
     position: absolute;
@@ -273,9 +295,6 @@ export default{
 #filter-type{
         margin-right: 20px;
     }
-   #filter-count{
-        border: 1px solid #303030;
-   }
 #btn2 p{
     font-size: 16px;
     margin: 10px;
@@ -285,22 +304,14 @@ export default{
     height: 25px;
     width: 100px;
     border-radius: 10px;
-    margin-left: 10px;
     background-color: white;
     padding-left: 1px;
     padding-top: 5px;
     border: 1px solid rgb(214, 211, 211);
     margin-bottom: 10px;
    
-}
-#filter-type p{
-    font-size: 20px;
-    margin-left: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-family: jostSemibold;
-}
-#choosen-filters svg{
+}  
+ #choosen-filters svg{
     float: right;
 }
 #choosen-filters span{

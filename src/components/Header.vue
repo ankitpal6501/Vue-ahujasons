@@ -42,13 +42,14 @@
         <div id="searchlogo">
             <button> <img src="https://ahujasons.com/images/search.svg" alt=""></button>
             <button> <img src="https://ahujasons.com/images/wish-list-header.svg" alt=""></button>
-            <button><img src="	https://ahujasons.com/images/cart-header.svg" alt=""></button>
+            <button class="badge"><img src="	https://ahujasons.com/images/cart-header.svg" alt="">
+            <span class="counter">3</span></button>
         </div>
     </div>
 
   <!-- mobile header -->
   <div id="headermobile">
-        <button  id="dropbtn">
+        <button @click="openModal" id="dropbtn">
             <svg xmlns="http://www.w3.org/2000/svg" width="45px"
                 height="30.53015" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h8m-8 6h16" />
@@ -61,14 +62,21 @@
             <img class="india" src="https://ahujasons.com/images/ahuja/indFlag.jpg" alt=""><span>INR</span>
             <button> <img src="https://ahujasons.com/images/search.svg" alt=""></button>
             <button> <img src="https://ahujasons.com/images/wish-list-header.svg" alt=""></button>
-            <button><img src="	https://ahujasons.com/images/cart-header.svg" alt=""></button>
+            <button><img src="	https://ahujasons.com/images/cart-header.svg" alt="">
+            <span class="counter">3</span></button>
         </div>
     </div>
 </div>
 </template>
 <script>
+import {bus} from "../main"
 export default{
     name:"Header",
+    methods:{
+        openModal(){
+            bus.$emit("openModel")
+        }
+    }
 }
 </script>
 <style scoped>
@@ -101,6 +109,23 @@ export default{
 #toptags{
     margin-left: 0%;
     padding-top: 5px;
+}
+.badge{
+    position: relative;
+}
+.counter{
+    background: #4C0B36;
+    height: 15px;
+    WIDTH: 15PX;
+    display: inline-block;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 11px;
+    padding: 2px;
+    position: absolute;
+    bottom: -5px;
+    right: -2px;
+    line-height: 16px;
 }
 #toptags a{
     opacity: 1;
@@ -157,15 +182,20 @@ export default{
 
 }
 #logo{
-    padding-left: 40px;
     margin: 15px;
     margin-left:40px;
-    margin-right: 0px;
+    margin-right:40px;
 }
 #headermobile{
     display: none;
 }
 @media screen and (max-width: 860px){
+    .counter{
+    padding: 1px;
+    bottom: -4px;
+    right: 12px;
+    line-height: 15px;
+    }
     #toptags{
         display: none;
     }
@@ -213,7 +243,7 @@ export default{
     }
     #searchlogo{
         position: absolute;
-        top: 0%;
+        margin-top: 40px;
         right: 0%;
     }
 }

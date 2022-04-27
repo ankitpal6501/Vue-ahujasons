@@ -1,5 +1,5 @@
 <template>
-            <div class="overlay">
+            <div @click="outsideClick($event)" class="overlay">
                 <div class="overlay-top">
                     <div class="user-profile">
                         <div class="upper">
@@ -115,14 +115,23 @@ export default {
     name:"HeaderModel",
     created(){
         bus.$on("openModel",()=>{
-            
+            if(document.querySelector('.overlay').style.display!=="none")
+       { document.querySelector('.overlay').style.width="100%";} 
         })
     },
     methods:{
+        outsideClick(event){
+           if (
+            event.target.matches(".about-more") ||
+             !event.target.closest(".overlay-top")
+            ) {
+                 this.closeModal()
+             }
+        },
         closeModal(){
-
-        }
-       
+            if(document.querySelector('.overlay').style.display!=="none")
+            {document.querySelector('.overlay').style.width="0%";}
+       },  
     }
 }
 </script>

@@ -7,45 +7,45 @@
             <div class="shop">  
                 <ul>
                 <h3>SHOP</h3>
-                    <li>Men</li>
-                    <li>Woman</li>
-                    <li>Home</li>
-                    <li>Sale</li>
-                    <li>Collection</li>
+                    <li><a href="#">Men</a></li>
+                    <li><a href="#">Woman</a></li>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Sale</a></li>
+                    <li><a href="#">Collection</a></li>
                 </ul>
             </div>
             <div class="quicklinks">  
                 <ul>
                 <h3>QUICK LINKS</h3>
-                <li>Ahujasons Export</li>
-                <li>Ahujasons Wholesale</li>
-                <li>Our Storyome</li>
-                <li>Legacy</li>
-                <li>Craftsman ship</li>
-                <li>Our Store</li>
-                <li>Blogs</li>
+                <li><a href="#">Ahujasons Export</a></li>
+                <li><a href="#">Ahujasons Wholesale</a></li>
+                <li><a href="#">Our Storyome</a></li>
+                <li><a href="#">Legacy</a></li>
+                <li><a href="#">Craftsman ship</a></li>
+                <li><a href="#">Our Store</a></li>
+                <li><a href="#">Blogs</a></li>
                 </ul>
             </div>
             <div class="customerservice">
                     
                 <ul>
                 <h3>CUSTOMER SERVICE</h3>
-                <li>Terms and Condition</li>
-                <li>Shipping & Delivery</li>
-                <li>Returns & Cancellation</li>
-                <li>Contact us</li>
-                <li>Store appointment</li>
+                <li><a href="#">Terms and Condition</a></li>
+                <li><a href="#">Shipping & Delivery</a></li>
+                <li><a href="#">Returns & Cancellation</a></li>
+                <li><a href="#">Contact us</a></li>
+                <li><a href="#">Store appointment</a></li>
                 </ul>
             </div>
             <div class="myprofile">
                     
                 <ul>
                 <h3>MY PROFILE</h3>
-                <li>My Account</li>
-                <li>Track Order</li>
-                <li>My Cart</li>
-                <li>Wishlist</li>
-                <li>Order History</li>
+                <li><a href="#">My Account</a></li>
+                <li><a href="#">Track Order</a></li>
+                <li><a href="#">My Cart</a></li>
+                <li><a href="#">Wishlist</a></li>
+                <li><a href="#">Order History</a></li>
                 </ul>
             </div>
             <div class="signup">
@@ -56,14 +56,13 @@
                 </div>
                 <h4>GIVE US A FOLLOW</h4>
                 <div class="icon">
-                    <img src="	https://ahujasons.com/images/ahuja/facebook.svg" alt="">
-                    <img src="	https://ahujasons.com/images/ahuja/instagram.svg" alt="">
+                    <img src="../assets/facebook.svg" alt="">
                     <img src="	https://ahujasons.com/images/ahuja/twitter.svg" alt="">
                     <img src="	https://ahujasons.com/images/ahuja/linkedin.svg" alt="">
                     <img src="	https://ahujasons.com/images/ahuja/pinterest.svg" alt="">
                     <img src="https://ahujasons.com/images/ahuja/youtube.svg" alt="">
                 </div>
-                <p>Copyright © 2021 by Ahujasons I Powered by GreenHonchos</p>
+                <p id="copyright">Copyright © 2021 by Ahujasons I Powered by GreenHonchos</p>
             </div>
         </div>
 
@@ -83,90 +82,21 @@
                 <div class="input1">
                     <input type="email" name="email" placeholder="Enter your eamil"> <label for="eamil">Subscribe</label>
                 </div>
-                <div class="shop">  
-                    <h3 class="show-data">SHOP
+                <div v-for="(content,index) in footerContent" :key="content.id" class="shop">  
+                    <h3 @click="showDropLinks(index)" class="show-data">{{content.id}}
                     <div class="mobile-dynamic-icon">
-                        <svg class="plus" xmlns="http://www.w3.org/2000/svg" height="23px"
+                        <svg v-if="index1!==index" class="plus" xmlns="http://www.w3.org/2000/svg" height="23px"
                         width="30px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                         </svg>
-                        <svg class="minus" xmlns="http://www.w3.org/2000/svg" height="23px"
+                        <svg v-if="index1==index" class="minus" xmlns="http://www.w3.org/2000/svg" height="23px"
                             width="30px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
                         </svg>
                     </div>
                     </h3>
-                    <div class="dropdown-content">
-                        <a href="#">Men</a>
-                        <a href="#">Woman</a>
-                        <a href="#">Home</a>
-                        <a href="#">Sale</a>
-                        <a href="#">Collection</a>
-                    </div>
-                </div>
-                <div class="shop">  
-                    <h3 class="show-data">QUICK LINKS
-                    <div class="mobile-dynamic-icon">
-                        <svg class="plus" xmlns="http://www.w3.org/2000/svg" height="23px"
-                            width="30px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                        </svg>
-                        <svg class="minus" xmlns="http://www.w3.org/2000/svg" height="23px"
-                            width="30px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
-                        </svg>
-                    </div>  
-                    </h3>
-                    <div class="dropdown-content">
-                        <a href="#">Ahujasons Export</a>
-                        <a href="#">Ahujasons Wholesale</a>
-                        <a href="#">Our Storyome</a>
-                        <a href="#">Legacy</a>
-                        <a href="#">Craftsman ship</a>
-                        <a href="#">Our Store</a>
-                        <a href="#">Blogs</a>
-                    </div>
-                </div>
-                <div class="shop">
-                    <h3 class="customerservice">CUSTOMER SERVICE
-                    <div class="mobile-dynamic-icon">
-                        <svg class="plus" xmlns="http://www.w3.org/2000/svg" height="23px"
-                            width="30px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                        </svg>
-                        <svg class="minus" xmlns="http://www.w3.org/2000/svg" height="23px"
-                            width="30px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
-                        </svg>
-                    </div>
-                    </h3>
-                    <div class="dropdown-content">
-                        <a href="#">Terms and Condition</a>
-                        <a href="#">Shipping & Delivery</a>
-                        <a href="#">Returns & Cancellation</a>
-                        <a href="#">Contact us</a>
-                        <a href="#">Store appointment</a>
-                    </div>
-                </div>
-                <div class="shop">
-                    <h3 class="myprofile">MY PROFILE
-                    <div class="mobile-dynamic-icon">
-                        <svg class="plus" xmlns="http://www.w3.org/2000/svg" height="23px"
-                            width="30px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                        </svg>
-                        <svg class="minus" xmlns="http://www.w3.org/2000/svg" height="23px"
-                            width="30px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
-                        </svg>
-                    </div>
-                    </h3>
-                    <div class="dropdown-content">
-                        <a href="#">My Account</a>
-                        <a href="#">Track Order</a>
-                        <a href="#">My Cart</a>
-                        <a href="#">Wishlist</a>
-                        <a href="#">Order History</a>
+                    <div v-if="index1==index" class="dropdown-content">
+                        <a v-for="category in content.categories" :key="category" href="#">{{category}}</a>
                     </div>
                 </div>
                 <p class="last">Copyright © 2021 by Ahujasons I Powered by GreenHonchos</p>
@@ -177,6 +107,38 @@
 <script>
 export default{
     name:"Footer",
+    data(){
+        return{
+            index1:-1,
+            footerContent:[
+                {
+                    id:"SHOP",
+                    categories:["Men","Woman","Home","Sale","Collection"]
+                },
+                {
+                    id:"QUICK LINKS",
+                    categories:["Ahujasons Export","Ahujasons Wholesale","Our Storyome","Legacy","Craftsman ship","Our Store","Blogs"]
+                },
+                {
+                    id:"CUSTOMER SERVICE",
+                    categories:["Terms and Condition","Shipping & Delivery","Returns & Cancellation","Contact us","Store appointment"]
+                },
+                {
+                    id:"MY PROFILE",
+                    categories:["My Account","Track Order","My Cart","Wishlist","Order History"]
+                },
+            ]
+        }
+    },
+    methods:{
+        showDropLinks(index){
+            if(this.index1!==index) {
+                this.index1=index 
+            }else{
+            this.index1=-1 
+            }       
+        },
+    }
 }
 </script>
 <style scoped>
@@ -196,8 +158,7 @@ export default{
    position: relative;
 }
 .topfooter img{
-    height: 70px;
-    width: 70px;
+    max-width: 92.14px;
 }
 
 .topfooter::before{
@@ -224,9 +185,13 @@ export default{
 
 li{
     list-style: none;
-    color: #303030;
     margin-bottom: 10px;
     font-size: 16px;
+}
+a{
+    text-decoration: none;
+    color: #303030;
+    opacity: 0.8;
 }
 .bottomfooter{
     margin-top: 30px;
@@ -257,12 +222,17 @@ li{
 .signup p{
     font-size: 14px;
     color: #303030;
+    
+}
+#copyright{
+    opacity: 0.8;
 }
 .input1{
     border-bottom: 1px solid black;
 }
 .input1 input{
     border: none;
+    width: 75%;
 }
 .input1 input:focus{
     outline: none;
@@ -277,7 +247,7 @@ li{
     margin-bottom: 45px;
 }
 .icon img{
-    margin-right:20px;
+    margin-right:27px;
 }
 @media screen and (max-width:752px){
     
@@ -331,7 +301,7 @@ li{
         display: none;
     }
     .dropdown-content{
-        display: none;
+        display: flex;
         flex-direction: column;
         z-index: 1;
         min-width: 100%;

@@ -139,7 +139,7 @@ export default {
 .overlay{
     display: none;
 }
-@media screen and (max-width: 860px){
+@media screen and (max-width: 767px){
     .overlay{
         display: block;
         height: 100%;

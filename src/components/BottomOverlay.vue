@@ -4,7 +4,7 @@
             <div @click="outsideClick($event)" class="sortoverlay">
                 <div class="sortovery-inner">
                     <h1 class="sort-heading"> SORT BY</h1>
-                    <p @click="getSortedData(sortType.code)" v-for="sortType in sortTypes" :key="sortType.code">{{sortType.label}}</p>
+                    <p class="NameOfSort" @click="getSortedData(sortType.code)" v-for="sortType in sortTypes" :key="sortType.code">{{sortType.label}}</p>
                 </div>
             </div>
 
@@ -45,7 +45,18 @@ export default {
             bus.$emit("openfilters")
         },
         getSortedData(sortType){
+            //change background color of selected sort type
+            let sorts = document.querySelectorAll('.NameOfSort');
+            sorts.forEach(sort => {
+                sort.addEventListener('click', function () {
+                sorts.forEach(srt => srt.style.backgroundColor="#ffff");
+                this.style.backgroundColor="#ececec"       
+                });
+            });
+            //emit event to update product according to selected sort
             bus.$emit("updateSortedData",sortType)
+
+            //close sort overlay
             this.handelSortModel()
         },
         outsideClick(event){
@@ -82,7 +93,7 @@ export default {
 .overlay-filters{
     display: none;
 }
-@media screen and (max-width:860px){
+@media screen and (max-width:767px){
     
     .overlay-filters{
         display: inherit;
@@ -152,7 +163,7 @@ export default {
         width: 100%;
         text-align: center;
     }
-    .sortovery-inner p:hover{
+    .active:hover{
         background-color: #ececec;
     }
 }

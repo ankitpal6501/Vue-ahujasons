@@ -2,7 +2,6 @@
     <div id="main-container">
         <div id="main-top">
             <div id="heading">
-                <!-- <p id="p1">Women Pashmina Shawls</p> -->
                 <p id="p1">{{KurtaType}}</p>
                 <p id="p2">{{items}} items</p>
             </div>
@@ -44,7 +43,11 @@
                
                 <Filter-array :filters="filterTypes" :selectedFiletrs="selectedFiletrs" v-on:updateProductList="changeProduct($event,'',pageNo)"/>
             </div> 
-            <Mainbody :products="products"/>
+            
+            <div>
+                <div v-if="showLoader" class="loader"></div>
+                <Mainbody :products="products"/>
+            </div>
         </div>
         <div>
            <MainFooter :count="items" v-on:changePage="changeProduct(selectedFiletrs,sort_by,$event)"/>
@@ -60,6 +63,7 @@ export default{
     name:"Main",
     data(){
         return{
+            showLoader:false,
            KurtaType:"PshwnShawls",
            items:null,
             products:[],
@@ -103,6 +107,7 @@ export default{
         },
        async changeProduct(event,sort_by,pageNo)
        {
+           this.showLoader=true
             this.selectedFiletrs=event
              event.map((item)=>{
                 if(this.codekeyPair===""){
@@ -152,6 +157,7 @@ export default{
             if(response.status== 200){
             const data = await response.json();
             this.products=data.result.products
+            this.showLoader=false;
             if(this.filterTypes.length===0){
                 this.filterTypes=data.result.filters
                 bus.$emit("filters",this.filterTypes)}
@@ -187,6 +193,24 @@ export default{
 }
 </script>
 <style scoped>
+/* .circular-loader{
+  width: 100%;
+  position: relative;
+} */
+.loader {
+    margin-left:500px;
+    margin-bottom: 10px;
+  border: 10px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 10px solid #0c0c0c;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 #container{
     width: 100%;
     display: flex;
@@ -319,7 +343,15 @@ export default{
     font-family: JostRegular;
     font-size: 14px;
 }
-@media screen and (max-width: 860px){
+@media screen and (max-width:1024px){
+    #main-middel{
+        grid-template-columns: 22% 78%;
+    }
+}
+@media screen and (max-width: 767px){
+    .loader{
+        margin-left:362px;
+    }
     #selected-filetrs{
         display: none;
     }
@@ -338,6 +370,9 @@ export default{
     }
     #filter-type{
         display: none;
+    }
+    @media screen and (max-width: 590px){
+       .loader {margin-left: 240px};
     }
 }
 </style>

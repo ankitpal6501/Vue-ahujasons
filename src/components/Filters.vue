@@ -82,6 +82,8 @@ export default {
 </script>
 <style scoped>
 #filter-lable{
+    width: calc(100% - 30px);
+    word-break: break-all;
     margin: 0;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -161,7 +163,7 @@ export default {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-@media screen and (max-width: 860px){
+@media screen and (max-width: 767px){
     #filter-type{
         display: none;
     }

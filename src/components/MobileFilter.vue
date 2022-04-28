@@ -2,6 +2,12 @@
     <div class="filter-overlay">
         <div class="headline">
             <p>Filter</p>
+            <div v-if="selectedOptions.length!==0"  v-on:click="clearFilter" id="choosen-filters"><span>Clear All</span>
+                        <svg  xmlns="http://www.w3.org/2000/svg" height="18px"
+                            width="30px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </div>
         </div>
         <div class="mid-filters">
             <div class="filter-type">
@@ -12,7 +18,7 @@
             <div class="filter-options">
                 <div v-for="option in filterCategory.options" :key="option.value" class="filters">
                         <label @change="updateProductList(option)" class="container" >{{option.value}}
-                            <input type="checkbox"  :id="option.value_key" :value="option.value_key">
+                            <input type="checkbox" :checked="checkStatus(option)" :id="option.value_key" :value="option.value_key">
                             <span class="checkmark"></span>
                         </label> 
                  </div>
@@ -47,6 +53,13 @@ export default {
         })
     },
     methods:{
+        clearFilter(){
+            this.selectedOptions=[]
+        },
+        checkStatus(option){
+            // debugger; // eslint-disable-line no-debugger
+            return this.selectedOptions.includes(option)?true:false 
+        },
         updateProductList(option){
             if(this.selectedOptions.includes(option)){
                 const index = this.selectedOptions.indexOf(option);
@@ -67,8 +80,8 @@ export default {
             let filters = document.querySelectorAll('.filter-box');
             filters.forEach(filter => {
                 filter.addEventListener('click', function () {
-                filters.forEach(flt => flt.classList.remove('active'));
-                    this.classList.add('active');        
+                filters.forEach(flt => flt.style.backgroundColor="#f3f3f3");
+                    this.style.backgroundColor="#fff";        
                 });
             });
         },
@@ -86,10 +99,29 @@ export default {
 .action-button{
     display: none;
 }
-@media screen and (max-width:860px){
-    .active:hover{
-        background-color: #fff;
-    }
+@media screen and (max-width:767px){
+    #choosen-filters{
+    display: block;
+    height: 25px;
+    width: 100px;
+    border-radius: 10px;
+    background-color: white;
+    padding-left: 1px;
+    padding-top: 3px;
+    border: 1px solid rgb(214, 211, 211);
+    margin-right: 10px;
+    margin-top: 10px;
+   
+}  
+ #choosen-filters svg{
+     padding-top: 4px;
+    float: right;
+}
+#choosen-filters span{
+    padding-left: 10px;
+    font-family: JostRegular;
+    font-size: 14px;
+}
    .filter-overlay{
     display: block;
         height: 100%;
@@ -100,6 +132,9 @@ export default {
         overflow-x: hidden;
    } 
    .headline{
+       display: flex;
+       flex-direction: row;
+       justify-content: space-between;
        font-size: 18px;
         margin: 0%;
         color: #303030;
@@ -123,9 +158,8 @@ export default {
         flex-direction: column;
         padding-left: 10px;
         padding: 0%;
-        overflow-y: scroll;
         background-color: #f3f3f3;
-        height: 86vh;
+        padding-bottom:50px;
    }
     .filter-box{
        display: inherit;
@@ -150,6 +184,8 @@ export default {
    }
    .action-button{
        width: 100%;
+       position: fixed;
+       bottom: 0%;
    }
    .action-button button{
        width: 50%;

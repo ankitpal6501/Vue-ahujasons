@@ -1,5 +1,5 @@
 <template>
-  <div id="datadisplay">
+  <div v-if="products" id="datadisplay">
     <div v-for="product in products" :key="product.id" id="box">
       <div class="product-img">
             <img id="img1" :src="product.image" alt="" />
@@ -7,7 +7,7 @@
                 <p>VIEW DETAIL</p>
             </div>
       </div>
-      <img id="img2" src="../assets/heart.svg" alt="" />
+      <img id="img2" src="../assets/heart.svg" alt=""/>
       <p id="p1">{{ product.name }}</p>
       <p id="p2">
         <span id="old-price">Rs.{{ product.price }}</span>
@@ -15,6 +15,9 @@
         <span id="discount-per">-{{ product.discount }}%</span>
       </p>
     </div>
+  </div>
+  <div v-else class="no-product">
+    <p>NO PRODUCT FOUND</p>
   </div>
 </template>
 <script>
@@ -28,6 +31,12 @@ export default {
 };
 </script>
 <style scoped>
+.no-product{
+  font-family: jostBold;
+  font-size: 20px;
+  text-align: center;
+  margin-top: 15%;
+}
 #datadisplay {
   color: #0c0c0c;
   font-family: JostMedium;
@@ -36,9 +45,6 @@ export default {
   justify-content: space-between;
   padding-bottom: 20px;
 }
-/* #datadisplay > * {
-  flex: 0 0 23%;
-} */
 .product-img{
     width: 100%;
     position: relative;
@@ -97,12 +103,14 @@ export default {
   right: 10px;
   top: 10px;
 }
+@media screen and (max-width:1024px) {
+  #box{
+    width: 33%;
+  }
+}
 @media screen and (max-width: 600px) {
   #box{
      width: 48%;
   }
-  /* #datadisplay > * {
-  flex: none;
-} */
 }
 </style>

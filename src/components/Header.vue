@@ -189,7 +189,7 @@ export default{
 #headermobile{
     display: none;
 }
-@media screen and (max-width: 860px){
+@media screen and (max-width: 767px){
     .counter{
     padding: 1px;
     bottom: -4px;

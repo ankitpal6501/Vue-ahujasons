@@ -116,7 +116,7 @@ export default {
     created(){
         bus.$on("openModel",()=>{
             if(document.querySelector('.overlay').style.display!=="none")
-       { document.querySelector('.overlay').style.width="100%";} 
+       { document.querySelector('.overlay').style.left="0";} 
         })
     },
     methods:{
@@ -130,7 +130,7 @@ export default {
         },
         closeModal(){
             if(document.querySelector('.overlay').style.display!=="none")
-            {document.querySelector('.overlay').style.width="0%";}
+            {document.querySelector('.overlay').style.left="-100%";}
        },  
     }
 }
@@ -143,11 +143,11 @@ export default {
     .overlay{
         display: block;
         height: 100%;
-        width: 0;
+        width: 100%;
         position: fixed;
         z-index: 1;
         top: 0;
-        left: 0;
+        left: -100%;
         background-color:rgba(0, 0, 0, 0);
         background-color: rgba(0, 0, 0, 0.7);
         overflow-x: hidden;

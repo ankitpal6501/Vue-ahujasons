@@ -55,6 +55,7 @@ export default {
     methods:{
         clearFilter(){
             this.selectedOptions=[]
+            this.applyFilters()
         },
         checkStatus(option){
             // debugger; // eslint-disable-line no-debugger

@@ -58,6 +58,7 @@ export default {
 
             //close sort overlay
             this.handelSortModel()
+            window.scrollTo(0,0)
         },
         outsideClick(event){
            if (

@@ -249,11 +249,14 @@ a{
 .icon img{
     margin-right:27px;
 }
-@media screen and (max-width:752px){
+@media screen and (max-width:767px){
     
     .bottomfooter{
         display: none;
     }
+    /* .input1 input{
+        width: auto;
+    } */
     #mobile-footer{
         display: flex;
         flex-direction: column;
@@ -295,10 +298,7 @@ a{
     .mobile-dynamic-icon{
         position: absolute;
         right: 2%;
-        top: 30%;
-    }
-    .minus{
-        display: none;
+        top: 0%;
     }
     .dropdown-content{
         display: flex;
@@ -311,5 +311,12 @@ a{
         text-decoration: none;
         color: #303030;
     }
+}
+@media screen and (max-width:358px)
+{
+    .input1 input{
+        width: auto;
+    }
+    
 }
 </style>

@@ -3,7 +3,17 @@
     <div id="headertop">
         <p>COMPLIMENTARY GIFT BOX PACKING ON ALL PRE-PAID ORDERS</p>
         <div id="toptags">
-            <img id="india" src="https://ahujasons.com/images/ahuja/indFlag.jpg" alt=""> INR
+            <div class="country-flag">
+                <img id="india" src="https://ahujasons.com/images/ahuja/indFlag.jpg" alt=""><span> INR</span>
+                <svg class="down-arrow" xmlns="http://www.w3.org/2000/svg" height="13px"
+                    width="20px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+                <div class="other-country">
+                    <img src="" alt="">USA
+                    <img src="" alt="">UK
+                </div>
+            </div>
                 <a href="#">OUR STORES</a> 
                 <a href="#">MY ACCOUNT</a>
                 <a href="#">BLOG</a>
@@ -110,6 +120,12 @@ export default{
     margin-left: 0%;
     padding-top: 5px;
 }
+.other-country{
+    display: none;
+}
+.country-flag{
+    display: contents;
+}
 .badge{
     position: relative;
 }
@@ -188,6 +204,29 @@ export default{
 }
 #headermobile{
     display: none;
+}
+@media screen and (max-width:1024px) {
+    #headerbottom{
+        font-size: 14px;
+    }
+    #headertag,#searchlogo,#resttag{
+        margin-top: 50px;
+    }
+    #header a{
+        padding: 14px;
+    }
+    #headertag svg{
+        top: 31%;
+        right: -3%;
+    }
+    #resttag svg{
+        top: 31%;
+        right: -3%;
+    }
+    /* #resttag{
+        margin-top: 50px;
+    } */
+    
 }
 @media screen and (max-width: 767px){
     .counter{

@@ -1,7 +1,7 @@
 <template>
   <div id="container">
     <Header/>
-    <Main/>
+    <router-view></router-view>
     <Footer/>
     <BottomOverlay/>
     <HeaderModel/>
@@ -14,26 +14,30 @@ import MobileFilter from "./MobileFilter.vue"
 import BottomOverlay from "./BottomOverlay.vue"
 import Header from "./Header.vue"
 import Footer from "./Footer.vue"
-import Main from "./Main.vue"
 import HeaderModel from "./HeaderModel.vue"
 export default {
   name: 'HelloWorld',
   components:{
     Header,
-    Footer,Main,
+    Footer,
     BottomOverlay,
     HeaderModel,
     MobileFilter
   },
-  props: {
-    msg: String
-  }
 }
 </script>
 <style scoped>
 #container{
   display: flex;
   flex-direction: column;
+}
+@font-face {
+  font-family: helveticRoman;
+  src: url(../font/HelveticaNeueRoman.woff);
+}
+@font-face {
+  font-family: helveticMedium;
+  src: url(../font/HelveticaNeueMedium.woff);
 }
 @font-face {
     font-family:JostMedium;

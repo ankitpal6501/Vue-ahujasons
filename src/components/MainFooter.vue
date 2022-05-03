@@ -20,8 +20,14 @@
     </div>
      <div id="Mobile-mainfooter">
         <div id="Mobile-page-btn">
+            <button  class="Mobile-next" @click="goback"><p>PREV</p> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="12px" 
+                height="23px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
             <button class="clickable" v-for="i in getNumber(startFrom,perpage)" :key="i" @click="changePage(i)">{{i}}</button>
-            <button  id="Mobile-next" @click="goNext"><p>NEXT</p> 
+            <button  class="Mobile-next" @click="goNext"><p>NEXT</p> 
                 <svg xmlns="http://www.w3.org/2000/svg" width="12px" 
                 height="23px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
@@ -98,7 +104,7 @@ export default {
 #page-btn{
     display: inherit;
     position: absolute;
-    left: 45%;
+    left: 40%;
 }
 .clickable{
     background-color: white;
@@ -137,7 +143,7 @@ export default {
         display: block;
         text-align: center;
     }
-    #Mobile-next{
+    .Mobile-next{
         display: inline-flex;
     width: fit-content;
     background-color: white;
@@ -148,10 +154,10 @@ export default {
     padding-left: 10px;
     border: 1px solid rgb(214, 211, 211) ;
     }
-    #Mobile-next svg{
+    .Mobile-next svg{
     margin-left: 10px;
     }
-    #Mobile-next:hover{
+    .Mobile-next:hover{
     background-color: #4C0B36;
     color: #ffff;
     }

@@ -193,10 +193,6 @@ export default{
 }
 </script>
 <style scoped>
-/* .circular-loader{
-  width: 100%;
-  position: relative;
-} */
 .loader {
     margin-left:500px;
     margin-bottom: 10px;
@@ -346,6 +342,7 @@ export default{
 @media screen and (max-width:1024px){
     #main-middel{
         grid-template-columns: 22% 78%;
+        margin-right: 0px;
     }
 }
 @media screen and (max-width: 767px){
@@ -360,6 +357,7 @@ export default{
     }
     #main-middel{
         margin:20px;
+        margin-right: 0%;
         display: grid;
         grid-template-rows: auto;
         grid-template-columns: 100%;
@@ -371,8 +369,10 @@ export default{
     #filter-type{
         display: none;
     }
-    @media screen and (max-width: 590px){
-       .loader {margin-left: 240px};
-    }
+    
 }
+@media screen and (max-width: 590px){
+       .loader {margin-left: 240px;}
+       #main-middel {margin-right:20px;}
+    }
 </style>

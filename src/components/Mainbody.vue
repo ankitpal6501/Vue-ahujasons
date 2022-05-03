@@ -4,7 +4,7 @@
       <div class="product-img">
             <img id="img1" :src="product.image" alt="" />
             <div id="view-details">
-                <p>VIEW DETAIL</p>
+                <router-link :to="{name:'ViewDetails',params: { id:`${product.url_key}.html`}}"><p>VIEW DETAIL</p></router-link> 
             </div>
       </div>
       <img id="img2" src="../assets/heart.svg" alt=""/>
@@ -53,6 +53,10 @@ export default {
 .product-img:hover #view-details {
   height: 45px;
 }
+#view-details a{
+  text-decoration: none;
+  color: #ffff;
+}
 #view-details {
   font-family: JostRegular;
   position: absolute;
@@ -88,7 +92,7 @@ export default {
   color: #bf1616;
 }
 #box {
-  width: 23%;
+  width: 24%;
   position: relative;
   margin-bottom: 40px;
 }
@@ -104,13 +108,22 @@ export default {
   top: 10px;
 }
 @media screen and (max-width:1024px) {
+  #datadisplay{
+    justify-content: normal;
+  }
   #box{
-    width: 33%;
+    width: 32%;
+    margin-left: 1px;
+    margin-right: 1px;
   }
 }
 @media screen and (max-width: 600px) {
   #box{
      width: 48%;
+     margin: 0%;
+  }
+  #datadisplay{
+    justify-content: space-between;
   }
 }
 </style>

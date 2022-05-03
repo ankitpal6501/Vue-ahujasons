@@ -1,5 +1,15 @@
-import HelloWorld from "./components/HelloWorld.vue"
+import Main from "./components/Main.vue"
+import ViewDetails from "./view/ViewDetails.vue"
 
 export default[
-    {path:'/',name:"HelloWorld", component:HelloWorld}
+    {
+        path: '/',
+        name: 'Main',
+        component: Main
+      },
+      {
+        path: '/:id',
+        name: 'ViewDetails',
+        component: ViewDetails
+      }
 ]

@@ -3,26 +3,26 @@
     <Header/>
     <router-view></router-view>
     <Footer/>
-    <BottomOverlay/>
+    <!-- <BottomOverlay/>
     <HeaderModel/>
-    <MobileFilter/>
+    <MobileFilter/> -->
   </div>
 </template>
 
 <script>
-import MobileFilter from "./MobileFilter.vue"
-import BottomOverlay from "./BottomOverlay.vue"
+// import MobileFilter from "./MobileFilter.vue"
+// import BottomOverlay from "./BottomOverlay.vue"
 import Header from "./Header.vue"
 import Footer from "./Footer.vue"
-import HeaderModel from "./HeaderModel.vue"
+// import HeaderModel from "./HeaderModel.vue"
 export default {
   name: 'HelloWorld',
   components:{
     Header,
     Footer,
-    BottomOverlay,
-    HeaderModel,
-    MobileFilter
+    // BottomOverlay,
+    // HeaderModel,
+    // MobileFilter
   },
 }
 </script>

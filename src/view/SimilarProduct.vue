@@ -1,25 +1,47 @@
 <template>
-    <div class="similar-product" v-if="similarProducts.length">
-        <div class="heading">
-            <p>Similar Products</p>
-        </div>
-        <VueSlickCarousel v-bind="slickOptions" >
-            <div v-for="product in similarProducts" :key="product.id" class="box">
-                <div class="card">
-                    <div class="product-img">
-                        <img id="img1" :src="product.image" alt="" />
+        <div class="similar-product" v-if="similarProducts.length">
+          <div class="heading">
+              <p>Similar Products</p>
+          </div>
+          <div class="desktop">
+            <VueSlickCarousel v-bind="slickOptions" >
+                <div v-for="product in similarProducts" :key="product.id" class="box">
+                    <div class="card">
+                        <div class="product-img">
+                            <img id="img1" :src="product.image" alt="" />
+                        </div>
+                        <img id="img2" src="../assets/heart.svg" alt=""/>
+                        <p id="p1">{{ product.name }}</p>
+                        <p id="p2">
+                            <span id="price">
+                              <!-- <img src="../assets/Rupees.svg" alt=""> -->
+                              Rs.{{ product.selling_price }}</span>
+                            <span id="old-price">Rs.{{ product.price }}</span>
+                            <span id="discount-per">-{{ product.discount }}%</span>
+                        </p>
                     </div>
-                    <img id="img2" src="../assets/heart.svg" alt=""/>
-                    <p id="p1">{{ product.name }}</p>
-                    <p id="p2">
-                        <span id="old-price">Rs.{{ product.price }}</span>
-                        <span id="price">Rs.{{ product.selling_price }}</span>
-                        <span id="discount-per">-{{ product.discount }}%</span>
-                    </p>
                 </div>
-            </div>
-        </VueSlickCarousel>
-    </div>
+            </VueSlickCarousel>
+          </div>
+          <div class="mobile">
+            <VueSlickCarousel v-bind="mobile_slickOptions" >
+              <div v-for="product in similarProducts" :key="product.id" class="box">
+                <div class="card">
+                  <div class="product-img">
+                    <img id="img1" :src="product.image" alt="" />
+                  </div>
+                  <img id="img2" src="../assets/heart.svg" alt=""/>
+                  <p id="p1">{{ product.name }}</p>
+                  <p id="p2">
+                    <span id="price">Rs.{{ product.selling_price }}</span>
+                    <span id="old-price">Rs.{{ product.price }}</span>
+                    <span id="discount-per">{{ product.discount }}%</span>
+                  </p>
+                </div>
+              </div>
+            </VueSlickCarousel>
+          </div>
+        </div>
 </template>
 <script>
 import VueSlickCarousel from 'vue-slick-carousel'
@@ -36,8 +58,23 @@ export default {
             slidesToShow: 4,
             slidesToScroll: 4,
             touchThreshold: 5,
-            centerPadding: "50px",
-}
+            },
+
+            mobile_slickOptions:{
+            arrows:false,
+            dots:false,
+            focusOnSelect: true,
+            infinite: true,
+            centerMode: true,
+            centerPadding: "30px",
+            speed: 500,
+            slidesToShow: 2,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            pauseOnDotsHover: true,
+            pauseOnFocus: true,
+            pauseOnHover: true
+            }
         }
     },
     props:{
@@ -49,9 +86,11 @@ export default {
 }
 </script>
 <style scoped>
-
+.mobile{
+  display: none;
+}
 .similar-product{
-    font-family: helveticRoman; 
+    font-family: Neue Helvetica, 'helveticRoman';
     padding: 40px;
     display: flex;
     flex-direction: column;
@@ -61,6 +100,7 @@ export default {
     text-align: center;
     font-size: 24px;
     color: #000000;
+    font-weight: 600;
 }
 .product-img{
     position: relative;
@@ -72,14 +112,19 @@ export default {
 #p1{
   margin-top: 8px;
   margin-bottom: 6px;
-  font-size: 16px;
+  font-size: 13px;
+  color: #565656;
 }
 #p2 {
   margin: 0;
   text-align: left;
-  font-size: 16px;
-  color: #4C0B36
+  font-size: 14px;
 }
+
+#price {
+    padding-right: 12px;
+}
+
 #old-price {
   color: #c5c5c5;
   text-decoration: line-through;
@@ -92,7 +137,7 @@ export default {
 .card {
   position: relative;
   margin-bottom: 40px;
-  padding: 0px 10px;
+  margin: 0px 20px;
 }
 #img1 {
   display: block;
@@ -102,8 +147,27 @@ export default {
 
 #img2 {
   position: absolute;
-  right: 15px;
-  top: 10px;
+  right: 7px;
+  top: 7px;
+  width: 17px;
 }
-
+@media screen and (max-width:767px) {
+  .mobile{
+    display: block;
+  }
+  .desktop{
+    display: none;
+  }
+  .similar-product{
+    padding: 0%;
+    margin-bottom: 20px;
+  }
+  .heading{
+    text-align: start;
+    font-size: 18px;
+    padding-left:10px ;
+    color: #262626;
+  }
+  
+}
 </style>

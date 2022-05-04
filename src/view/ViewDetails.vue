@@ -1,30 +1,40 @@
 <template>
     <div class="detail-container">
+        <breadCrumps/>
         <div class="View-page">
             <ImageSlider :gallery="gallery"/>
             <div class="details">
                 <p class="product-heading">{{allData.name}}</p>
+                <div class="rating">
+                    <img src="../assets/Star.svg" alt="">
+                    <img src="../assets/Star.svg" alt="">
+                    <img src="../assets/Star.svg" alt="">
+                    <img src="../assets/Star.svg" alt="">
+                    <img src="../assets/halfStar.svg" alt="">
+                    <!-- <img src="../assets/(10).svg" alt="">
+                    <img src="../assets/Arrow.svg" alt=""> -->
+                </div>
                 <div class="prices">
                     <p id="p2">
-                        <span id="old-price">Rs.{{allData.selling_price}}</span>
+                        <span id="old-price"> <img src="../assets/Rupees.svg" alt="">{{allData.selling_price}}</span>
                         <span id="discount-per">{{allData.discount}}%off</span>
                     </p>
                     <p id="p3"> MRP <span>Rs.{{allData.price}}</span> (inclusive all taxes)</p>
                 </div>
                 <div class="Club-member">
-                    <p>VIP Club Member get an extra discount of Rs.60 and Free Shipping. Learn More</p>
+                    <p>VIP Club Member get an extra discount of Rs.60 and Free Shipping. <a href="">Learn More</a></p>
                 </div>
                 <div class="models">
-                    <p>COLOR: BLUE</p>
+                    <p class="kurta-color">COLOR: BLUE</p>
                     <div class="model-images">
                         <img src="../assets/model.svg" alt="">
                         <img src="../assets/model1.jpg" alt="">
                         <img src="../assets/model2.jpg" alt="">
                     </div>
                     <div class="size-chart">
-                        <p class="size-choose"><span>SIZE : L</span> <span class="chart-link"><a href="">SIZE CHART</a></span></p>
+                        <p class="size-choose"><span>SIZE : {{currentSize}}</span> <span class="chart-link"><a href="">SIZE CHART</a></span></p>
                         <div class="Size-option">
-                            <button @click="activeButton" class="btn" v-for="size in sizes" :key="size.size">{{size.size}}</button>
+                            <button @click="activeButton(size.size)" class="btn" v-for="size in sizes" :key="size.size">{{size.size}}</button>
                         </div>
                     </div>
                     <div class="fitting">
@@ -58,7 +68,6 @@
                         <img src="../assets/fan4.jpg" alt="">
                     </div>
                 </div>
-                <div>
                     <div v-for="(content,index) in footerContent" :key="content.id" class="shop">  
                         <h3 @click="showDropLinks(index)" class="show-data">{{content.id}}
                         <div class="mobile-dynamic-icon">
@@ -79,13 +88,23 @@
                             </li>
                         </ul>
                     </div>
-                </div>
                 <div class="location">
                     <div class="pincode">
                         <img src="../assets/location.svg" alt=""><span>110019</span>
                         <span class="change-pincode">Change Pincode</span>
                     </div>
                     <p> Delivered by:<span> Feb 15 - Feb 16</span></p>
+                </div>
+                <div class="mobile-location">
+                    <div>
+                        <p>CHECK DELIVERY & SERVICES</p>
+                        <div class="input1">
+                            <input type="number" name="pincode" value="251002" > <label for="pincode">Check</label>
+                        </div>
+                        <p><img src="../assets/Delivered.svg" alt=""> <span>Delivered by: Feb 15 - Feb 16</span></p>
+                        <p><img src="../assets/COD.svg" alt=""> <span>COD available</span></p>
+                        <p><img src="../assets/Easy 30 days return.svg" alt=""> <span>Easy 30 days return & exchange available</span></p>
+                    </div>
                 </div>
                 <div class="invite">
                     <div class="invite-now">
@@ -103,14 +122,17 @@
 <script>
 import SimilarProduct from "./SimilarProduct.vue"
 import ImageSlider from "./ImageSlider.vue"
+import breadCrumps from "./breadCrumps.vue"
 export default {
     name:"ViewDetails",
     components:{
         ImageSlider,
-        SimilarProduct
+        SimilarProduct,
+        breadCrumps
     },
      data(){
         return{
+            currentSize:"6",
             allData:{},
             similarProduct:[],
             sizes:[],
@@ -124,13 +146,11 @@ export default {
             footerContent:[
                 {
                     id:"PRODUCT DETAILS",
-                    categories:["65% viscose, 35% nylon","Made in india","Handwash","Unlined","Shoulder cut-outs",
-                    "Ribbed knit fabric","Revolve Style NO. AAYR-WD5","Manufacturer Style NO. ATD4 F21",]
                 },
-                {
-                    id:"SIZE AND FIT",
-                    categories:["Ahujasons Export","Ahujasons Wholesale","Our Storyome","Legacy","Craftsman ship","Our Store","Blogs"]
-                },
+                // {
+                //     id:"SIZE AND FIT",
+                //     categories:["Ahujasons Export","Ahujasons Wholesale","Our Storyome","Legacy","Craftsman ship","Our Store","Blogs"]
+                // },
             ],
             gallery:[],
         }
@@ -149,9 +169,9 @@ export default {
             this.index1=-1 
             }       
         },
-        activeButton(){
+        activeButton(arg){
+            this.currentSize=arg
             let btns = document.querySelectorAll('.btn');
-            console.log(btns);
             btns.forEach(filter => {
                 filter.addEventListener('click', function () {
                 btns.forEach(flt => flt.classList.remove('active'));
@@ -217,9 +237,11 @@ export default {
     }
 .show-data{
         position: relative;
+        cursor: pointer;
     }
 .shop h3{
         font-weight: 400;
+        font-size: 12px;
      }
     .shop{
         position: relative;
@@ -233,29 +255,29 @@ export default {
 .View-page{
     display: grid;
     grid-template-rows: auto;
-    font-family: helveticMedium;
-    color: #303030;
+    font-family: Neue Helvetica, 'helveticMedium';
+    color: #262626;
     grid-template-columns: 60% 40%;
     font-size: 12px;
 }
 .details{
-    margin-top: 30px;
-    margin-left: 30px;
+    margin-left: 44px;
     margin-right: 30px;
 }
 .product-heading{
-    font-family: helveticRoman;
+    font-family: Neue Helvetica, 'helveticRoman';
     color: #262626;
-    font-size: 16px;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 5px;
+    margin-bottom:10px;
 }
 #p2 {
   margin: 0;
-  font-family: helveticRoman;
   text-align: left;
   font-size: 20px;
 }
 #p3{
-   font-family: helveticRoman; 
    font-size: 12px;
    color: #aeacac;
    margin: 0%;
@@ -270,9 +292,12 @@ export default {
     border-top: 1px solid hsla(0,0%,77.3%,.47059);
     color: #262626;
     font-size: 13px;
+    font-weight: 400;
+}
+.Club-member a{
+    color: #000000;
 }
 #old-price {
-  color: #0c0c0c;
   padding-right: 6px;
 }
 #discount-per {
@@ -281,7 +306,7 @@ export default {
 }
 .models{
     color: #262626;
-    font-family: helveticRoman;
+    font-family: Neue Helvetica, 'helveticRoman';
     font-size: 12px;
 }
 .model-images{
@@ -291,6 +316,9 @@ export default {
 .model-images img{
     margin-right: 10px;
 }
+.kurta-color,.size-choose{
+    font-weight: 600;
+}
 .size-chart{
     margin-top: 30px;
 }
@@ -299,23 +327,24 @@ export default {
 }
 .chart-link{
     float: right;
-    font-family: helveticMedium;
     color: #000000;
 }
 .btn{
     margin-right: 10px;
+    margin-bottom: 10px;
     border-radius: 9px;
     background-color: ffff;
     background-color: #fff;
     height: 38px;
     width: 38px;
     font-size: 12px;
-    color: #303030;
+    color: #262626;
     border: 1px solid rgba(139, 138, 138, 0.471);
+    cursor: pointer;
 }
 .fitting{
     display: flex;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 .fit-info{
     display: inherit;
@@ -344,10 +373,11 @@ export default {
 .add-to-bag button{
     background-color: #000000;
     color: #fff;
-    width: 294px;
+    width: 80%;
     height: 50px;
-    font-family: helveticMedium;
+    font-family: Neue Helvetica, 'helveticMedium';
     font-size: 14px;
+    cursor: pointer;
     border-radius: 10px;
 }
 .fans{padding-bottom: 20px;
@@ -369,6 +399,10 @@ export default {
 .delivery-time{
     padding: 10px 0px;
     border-bottom: 1px solid hsla(0,0%,77.3%,.47059);
+}
+.prices{
+    font-family: Neue Helvetica, 'helveticRoman';
+    margin-top:15px ;
 }
 .invite{
     display: flex;
@@ -395,6 +429,22 @@ export default {
     padding: 10px;
     font-size: 14px;
 }
+.mobile-location{
+    display: none;
+    padding: 10px;
+}
+.mobile-location img{
+    height: 25.85px;
+    width: 35.37px;
+    vertical-align: bottom;
+}
+.mobile-location p{
+    margin-bottom: 15px;
+}
+.mobile-location span{
+        margin-left: 15px;
+        vertical-align: super;
+}
 .location{
      border-bottom: 1px solid hsla(0,0%,77.3%,.47059);
      margin: 20px 0px 20px 0px;
@@ -405,10 +455,89 @@ export default {
     margin-top: 5px;
     font-size: 13px;
 }
+.location span{
+    font-weight: 600;
+}
 .change-pincode{
     float: right;
     font-size: 13px;
     margin-top: 6px;
+}
+@media screen and (max-width:767px) {
+    .mobile-location{
+        display: block;
+    }
+    .input1{
+        border: 1px solid #0c0c0c;
+        width: 100%;
+        height: 50px;
+        border-radius: 5px;
+    }
+    .input1 input{
+        border: none;
+        margin: 18px 10px;
+    }
+    .input1 label{
+        float: right;
+        margin:18px 10px;
+    }
+    .location{
+        display: none;
+    }
+  .View-page{
+      display: flex !important;
+      flex-direction: column !important;
+  }  
+  .detail-container{
+      margin: 0%;
+  }
+  .details{
+      margin: 0%;
+  }
+  .add-to-bag{
+      position: fixed;
+      bottom: 0%;
+      left: 0%;
+      z-index: 1;
+      background-color: #fff;
+      width: 100%;
+      text-align: center;
+      padding: 0%;
+  }
+  .add-to-bag button{
+      margin: 10px;
+  }
+  .add-to-bag img{
+        margin-top: 22px;
+        margin-left: 10px;
+        height: 23px;
+        width: 25px;
+  }
+  .product-heading{
+      padding-left: 10px;
+      padding-top: 10px;
+      color: #565656;
+      font-weight: 400;
+      font-size: 17px;
+  }
+  #p2{
+      font-size: 23px;
+  }
+  .add-to-bag,.models, .Club-member, .prices,.delivery-time{
+      padding-left: 10px;
+      padding-right: 10px;
+  }
+  .shop,.fans{
+      padding-left: 10px;   
+  }
+  .Club-member{
+      border-top: 15px solid hsla(0,0%,77.3%,.47059);
+      font-size: 15px;
+  }
+  .mobile-location,.delivery-time,.shop,.fans,.Club-member{
+      border-bottom: 15px solid hsla(0,0%,77.3%,.47059);
+  }
+
 }
 
 </style>

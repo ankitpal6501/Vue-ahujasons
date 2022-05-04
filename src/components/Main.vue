@@ -1,5 +1,8 @@
 <template>
     <div id="main-container">
+        <BottomOverlay/>
+        <HeaderModel/>
+        <MobileFilter/>
         <div id="main-top">
             <div id="heading">
                 <p id="p1">{{KurtaType}}</p>
@@ -58,6 +61,9 @@
 import Filters from "../components/Filters.vue"
 import Mainbody from "../components/Mainbody.vue"
 import MainFooter from "../components/MainFooter.vue"
+import MobileFilter from "./MobileFilter.vue"
+import BottomOverlay from "./BottomOverlay.vue"
+import HeaderModel from "./HeaderModel.vue"
 import {bus} from "../main"
 export default{
     name:"Main",
@@ -81,6 +87,9 @@ export default{
         "Filter-array":Filters,
         Mainbody,
         MainFooter,
+        BottomOverlay,
+        HeaderModel,
+        MobileFilter
     },
     created(){
         bus.$on("updateSortedData",(sort)=>{

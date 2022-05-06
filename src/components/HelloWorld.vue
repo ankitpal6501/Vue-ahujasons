@@ -1,10 +1,10 @@
 <template>
   <div id="container">
     <Header/>
+    <HeaderModel/>
     <router-view></router-view>
     <Footer/>
     <!-- <BottomOverlay/>
-    <HeaderModel/>
     <MobileFilter/> -->
   </div>
 </template>
@@ -14,14 +14,14 @@
 // import BottomOverlay from "./BottomOverlay.vue"
 import Header from "./Header.vue"
 import Footer from "./Footer.vue"
-// import HeaderModel from "./HeaderModel.vue"
+import HeaderModel from "./HeaderModel.vue"
 export default {
   name: 'HelloWorld',
   components:{
     Header,
     Footer,
+    HeaderModel,
     // BottomOverlay,
-    // HeaderModel,
     // MobileFilter
   },
 }

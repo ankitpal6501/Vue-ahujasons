@@ -1,8 +1,11 @@
 <template>
+<div>
+    <BottomOverlay/>
+    
+    <MobileFilter/>
+    <!-- <Header/> -->
     <div id="main-container">
-        <BottomOverlay/>
-        <HeaderModel/>
-        <MobileFilter/>
+        
         <div id="main-top">
             <div id="heading">
                 <p id="p1">{{KurtaType}}</p>
@@ -56,6 +59,7 @@
            <MainFooter :count="items" v-on:changePage="changeProduct(selectedFiletrs,sort_by,$event)"/>
         </div>
     </div>
+</div>
 </template>
 <script>
 import Filters from "../components/Filters.vue"
@@ -63,7 +67,7 @@ import Mainbody from "../components/Mainbody.vue"
 import MainFooter from "../components/MainFooter.vue"
 import MobileFilter from "./MobileFilter.vue"
 import BottomOverlay from "./BottomOverlay.vue"
-import HeaderModel from "./HeaderModel.vue"
+// import Header from "./Header.vue"
 import {bus} from "../main"
 export default{
     name:"Main",
@@ -88,8 +92,8 @@ export default{
         Mainbody,
         MainFooter,
         BottomOverlay,
-        HeaderModel,
-        MobileFilter
+        MobileFilter,
+        // Header,
     },
     created(){
         bus.$on("updateSortedData",(sort)=>{

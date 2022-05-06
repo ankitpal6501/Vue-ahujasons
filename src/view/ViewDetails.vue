@@ -1,137 +1,182 @@
 <template>
-    <div class="detail-container">
-        <breadCrumps/>
-        <div class="View-page">
-            <ImageSlider :gallery="gallery"/>
-            <div class="details">
-                <p class="product-heading">{{allData.name}}</p>
-                <div class="rating">
-                    <img src="../assets/Star.svg" alt="">
-                    <img src="../assets/Star.svg" alt="">
-                    <img src="../assets/Star.svg" alt="">
-                    <img src="../assets/Star.svg" alt="">
-                    <img src="../assets/halfStar.svg" alt="">
-                    <!-- <img src="../assets/(10).svg" alt="">
-                    <img src="../assets/Arrow.svg" alt=""> -->
-                </div>
-                <div class="prices">
-                    <p id="p2">
-                        <span id="old-price"> <img src="../assets/Rupees.svg" alt="">{{allData.selling_price}}</span>
-                        <span id="discount-per">{{allData.discount}}%off</span>
-                    </p>
-                    <p id="p3"> MRP <span>Rs.{{allData.price}}</span> (inclusive all taxes)</p>
-                </div>
-                <div class="Club-member">
-                    <p>VIP Club Member get an extra discount of Rs.60 and Free Shipping. <a href="">Learn More</a></p>
-                </div>
-                <div class="models">
-                    <p class="kurta-color">COLOR: BLUE</p>
-                    <div class="model-images">
-                        <img src="../assets/model.svg" alt="">
-                        <img src="../assets/model1.jpg" alt="">
-                        <img src="../assets/model2.jpg" alt="">
-                    </div>
-                    <div class="size-chart">
-                        <p class="size-choose"><span>SIZE : {{currentSize}}</span> <span class="chart-link"><a href="">SIZE CHART</a></span></p>
-                        <div class="Size-option">
-                            <button @click="activeButton(size.size)" class="btn" v-for="size in sizes" :key="size.size">{{size.size}}</button>
+    <!-- <div class="container"> -->
+        
+        <!-- <div class="mobile-pdp">
+            <button @click="openModal" id="dropbtn">
+                <img src="../assets/Left Arrow.svg" alt="">
+            </button>
+            <div id="searchlogo">
+                <button> <img src="../assets/Path 3927.svg" alt=""></button>
+                <button> <img src="../assets/heart.svg" alt=""></button>
+                <button><img src="../assets/My Bag.svg" alt="">
+                <span class="counter">3</span></button>
+            </div>
+        </div> -->
+        <div class="detail-container">
+            <!-- <div class="header-PDP">
+                <Header/>
+            </div> -->
+            <breadCrumps :name="allData.name"/>
+            <div class="View-page">
+                <ImageSlider :gallery="gallery"/>
+                <div class="details">
+                    <p class="product-heading">{{allData.name}}</p>
+                    <div class="rating">
+                        <img class="star" src="../assets/Star.svg" alt="">
+                        <img class="star" src="../assets/Star.svg" alt="">
+                        <img class="star" src="../assets/Star.svg" alt="">
+                        <img class="star" src="../assets/Star.svg" alt="">
+                        <img class="star" src="../assets/halfStar.svg" alt="">
+                        <div class="starCount">
+                            <img class="countTo_10" src="../assets/(10).svg" alt="">
+                            <img class="count_arrow" src="../assets/Arrow.svg" alt="">
                         </div>
                     </div>
-                    <div class="fitting">
-                        <p>fit info</p>
-                        <div class="fit-info"> <span>{{allData.fit}}</span></div>
+                    <div class="prices">
+                        <p id="p2">
+                            <span id="old-price"> <img src="../assets/Rupees.svg" alt="">{{allData.selling_price}}</span>
+                            <span v-if="allData.discount!=='0'" id="discount-per">{{allData.discount}}%off</span>
+                        </p>
+                        <p id="p3"><span v-if="allData.discount!=='0'"> MRP </span><span v-if="allData.discount!=='0'" class="discountedPrice">Rs.{{allData.price}}</span> (inclusive all taxes)</p>
                     </div>
-                    <div class="fitting">
-                        <p>Model</p>
-                        <div class="fit-details">
-                            <div class="fit-info"><span>177.5cm tall</span></div>
-                            <div class="fit-info"><span>Wears size M</span></div>
+                    <div class="Club-member">
+                        <p> <span>VIP Club Member get an extra discount of Rs.60 and Free Shipping.</span> 
+                        <span v-if="ShowMore">This necessity was
+                                as personal to me as it was universal.
+                                This need combined with my passion for
+                                teaching resulted in GeeksforGeeks as
+                                we know today. My message to you, in
+                                our inaugural edition of Geeks Digest,
+                                would be that if you are looking for
+                                a problem to work on, you dont need
+                                to look very far for it. All you should
+                                do is to look around yourself.</span>
+                                <button @click="displayContent" >{{this.message}}</button></p>
+                    </div>
+                    <div class="models">
+                        <p class="kurta-color">COLOR: {{color}}</p>
+                        <div class="model-images">
+                            <div v-for="(color,index) in colorVarient" :key="color.color_name" v-bind:class="{highLight:index2==index}"
+                             @click="chooseColor(color.color_name,index)" class="list_of_img" >
+                                <img class="selected_image" v-bind:class="{selected:index2==index}" src="../assets/Selected.svg" alt="">
+                                <img :src="color.image_url" alt="" class="color_choose">
+                            </div>
+                        </div>
+                        <div class="size-chart">
+                            <p class="size-choose"><span>SIZE : {{currentSize}}</span> <span class="chart-link"><a href="">SIZE CHART</a></span></p>
+                            <div class="Size-option">
+                                <button @click="activeButton(size.size)" class="btn" v-for="size in sizes" :key="size.size">{{size.size}}</button>
+                            </div>
+                        </div>
+                        <div class="fitting">
+                            <p>fit info</p>
+                            <div class="fit-info"> <span>{{allData.fit}}</span></div>
+                        </div>
+                        <div class="fitting">
+                            <p>Model</p>
+                            <div class="fit-details">
+                                <div class="fit-info"><span>177.5cm tall</span></div>
+                                <div class="fit-info"><span>Wears size M</span></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="add-to-bag">
-                    <button>ADD TO BAG</button>
-                    <img src="../assets/Heart (1).svg" alt="">
-                </div>
-                <div class="delivery-time">
-                    <p>
-                        <span>Delivery by: Mar 07 - Mar 10</span>
-                        <span class="check-details"> <a href=""> CHECK DETAILS </a></span>
-                    </p>
-                </div>
-                <div class="fans">
-                    <p>FANS PHOTOS</p>
-                    <div class="fans-images">
-                        <img src="../assets/fan1.jpg" alt="">
-                        <img src="../assets/fan2.jpg" alt="">
-                        <img src="../assets/fan3.jpg" alt="">
-                        <img src="../assets/fan4.jpg" alt="">
+                    <div class="add-to-bag">
+                        <button>ADD TO BAG</button>
+                        <img src="../assets/Heart (1).svg" alt="">
                     </div>
-                </div>
-                    <div v-for="(content,index) in footerContent" :key="content.id" class="shop">  
-                        <h3 @click="showDropLinks(index)" class="show-data">{{content.id}}
-                        <div class="mobile-dynamic-icon">
-                            <svg v-if="index1!==index" class="plus" xmlns="http://www.w3.org/2000/svg" height="23px"
-                            width="30px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                            </svg>
-                            <svg v-if="index1==index" class="minus" xmlns="http://www.w3.org/2000/svg" height="23px"
+                    <div class="delivery-time">
+                        <p>
+                            <span>Delivery by: Mar 07 - Mar 10</span>
+                            <span class="check-details"> <a href=""> CHECK DETAILS </a></span>
+                        </p>
+                    </div>
+                    <div class="fans">
+                        <p>FANS PHOTOS</p>
+                        <div class="fans-images">
+                            <img src="../assets/fan1.jpg" alt="">
+                            <img src="../assets/fan2.jpg" alt="">
+                            <img src="../assets/fan3.jpg" alt="">
+                            <img src="../assets/fan4.jpg" alt="">
+                        </div>
+                    </div>
+                        <div v-for="(content,index) in footerContent" :key="content.id" class="shop">  
+                            <h3 @click="showDropLinks(index)" class="show-data">{{content.id}}
+                            <div class="mobile-dynamic-icon">
+                                <svg v-if="index1!==index" class="plus" xmlns="http://www.w3.org/2000/svg" height="23px"
                                 width="30px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
-                            </svg>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                </svg>
+                                <svg v-if="index1==index" class="minus" xmlns="http://www.w3.org/2000/svg" height="23px"
+                                    width="30px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+                                </svg>
+                            </div>
+                            </h3>
+                            <ul v-if="index1==index" class="dropdown-content">
+                                <li v-for="innerContent in footerInnerContent" :key="innerContent.code" class="detail-list" href="#">
+                                    <span class="detail-label">{{innerContent.label}}</span>
+                                    <span class="detail-value">{{innerContent.value}}</span>
+                                </li>
+                            </ul>
                         </div>
-                        </h3>
-                        <ul v-if="index1==index" class="dropdown-content">
-                            <li v-for="innerContent in footerInnerContent" :key="innerContent.code" class="detail-list" href="#">
-                                <span class="detail-label">{{innerContent.label}}</span>
-                                <span class="detail-value">{{innerContent.value}}</span>
-                            </li>
-                        </ul>
-                    </div>
-                <div class="location">
-                    <div class="pincode">
-                        <img src="../assets/location.svg" alt=""><span>110019</span>
-                        <span class="change-pincode">Change Pincode</span>
-                    </div>
-                    <p> Delivered by:<span> Feb 15 - Feb 16</span></p>
-                </div>
-                <div class="mobile-location">
-                    <div>
-                        <p>CHECK DELIVERY & SERVICES</p>
-                        <div class="input1">
-                            <input type="number" name="pincode" value="251002" > <label for="pincode">Check</label>
+                    <div class="location">
+                        <div class="pincode">
+                            <img src="../assets/location.svg" alt=""><input @input="CheckPincode($event)" type="number" name="pincode" v-model="myPincode" > 
+                            <label for="pincode" class="change-pincode">Check Pincode</label>
                         </div>
-                        <p><img src="../assets/Delivered.svg" alt=""> <span>Delivered by: Feb 15 - Feb 16</span></p>
-                        <p><img src="../assets/COD.svg" alt=""> <span>COD available</span></p>
-                        <p><img src="../assets/Easy 30 days return.svg" alt=""> <span>Easy 30 days return & exchange available</span></p>
+                        <p> Delivered by:<span> Feb 15 - Feb 16</span></p>
                     </div>
-                </div>
-                <div class="invite">
-                    <div class="invite-now">
-                        <p>invite friend and earn</p> <p>You Get Rs. 100 Harpa Points for every friend</p>
-                        <a href="">invite now</a>
+                    <div class="mobile-location">
+                        <div>
+                            <p>CHECK DELIVERY & SERVICES</p>
+                            <div class="input1">
+                                <input type="number" name="pincode" @onkeyup="CheckPincode($event)" v-model="myPincode" >
+                                <label for="pincode">Check</label>
+                            </div>
+                            <div class="delivery-icons">
+                                <img src="../assets/Delivered.svg" alt=""> <p><span>Delivered by: Feb 15 - Feb 16</span></p>
+                            </div>
+                            <div class="delivery-icons">
+                                <img src="../assets/COD.svg" alt=""> <p><span>COD available</span></p>
+                            </div>
+                            <div class="delivery-icons">
+                                <img src="../assets/Easy 30 days return.svg" alt=""> <p><span>Easy 30 days return & exchange available</span></p>
+                            </div>
+                        </div>
                     </div>
-                    <img src="../assets/invite.svg" alt="">
+                    <div class="invite">
+                        <div class="invite-now">
+                            <p>invite friend and earn</p> <p>You Get Rs. 100 Harpa Points for every friend</p>
+                            <a href="">invite now</a>
+                        </div>
+                        <img src="../assets/invite.svg" alt="">
+                    </div>
                 </div>
             </div>
+            <SimilarProduct :similarProducts="similarProduct"/>
         </div>
-        <SimilarProduct :similarProducts="similarProduct"/>
-        <SimilarProduct :similarProducts="similarProduct"/>
-    </div>
+    <!-- </div> -->
 </template>
 <script>
 import SimilarProduct from "./SimilarProduct.vue"
 import ImageSlider from "./ImageSlider.vue"
 import breadCrumps from "./breadCrumps.vue"
+// import Header from "../components/Header.vue"
 export default {
     name:"ViewDetails",
     components:{
         ImageSlider,
         SimilarProduct,
-        breadCrumps
+        breadCrumps,
+        // Header,
     },
      data(){
         return{
+            index2:-1,
+            ShowMore:false,
+            message:"Learn more",
+            error:"",
+            myPincode:"",
             currentSize:"6",
             allData:{},
             similarProduct:[],
@@ -147,12 +192,23 @@ export default {
                 {
                     id:"PRODUCT DETAILS",
                 },
-                // {
-                //     id:"SIZE AND FIT",
-                //     categories:["Ahujasons Export","Ahujasons Wholesale","Our Storyome","Legacy","Craftsman ship","Our Store","Blogs"]
-                // },
             ],
             gallery:[],
+            color:"BLUE",
+            colorVarient: [
+                {
+                image_url: "https://wforwoman.gumlet.io/product/21AUW16786-117537/665/21AUW16786-117537_1.JPG",
+                color_name: "Blue"
+                },
+                {
+                image_url: "https://wforwoman.gumlet.io/product/21AUW16783-117388/665/21AUW16783-117388.jpg",
+                color_name: "Pink"
+                },
+                {
+                image_url: "https://wforwoman.gumlet.io/product/20AUW13770-114732/665/20AUW13770-114732_1.JPG",
+                color_name: "Black"
+                }
+      ],
         }
     },
     created(){
@@ -160,8 +216,32 @@ export default {
     },
     mounted(){
         this.getImgDetail()
+        
     },
     methods:{
+        displayContent(){
+            if(this.ShowMore===true){
+            this.message="Learn more"
+            this.ShowMore=false
+            }else{
+                this.ShowMore=true
+                this.message="Show less"
+            }
+        },
+        CheckPincode(){
+            if(this.myPincode>6){
+               this.myPincode=this.myPincode.slice(0,6)
+            }
+        },
+        chooseColor(arg,index){
+            this.color=arg.toUpperCase();
+             if(this.index2!==index) {
+                this.index2=index 
+            }else{
+            this.index2=-1 
+            }  
+        },
+
          showDropLinks(index){
             if(this.index1!==index) {
                 this.index1=index 
@@ -198,9 +278,18 @@ export default {
 }
 </script>
 <style scoped>
+.selected{
+    display: block !important;
+}
+.highLight{
+    border: 2px solid #000000 !important;
+}
 .active{
     background-color: #000000 !important;
     color: #ffff !important;
+}
+.mobile-pdp{
+    display: none;
 }
 .detail-container{
     display: flex;
@@ -259,6 +348,7 @@ export default {
     color: #262626;
     grid-template-columns: 60% 40%;
     font-size: 12px;
+    margin-left: 10px;
 }
 .details{
     margin-left: 44px;
@@ -282,7 +372,7 @@ export default {
    color: #aeacac;
    margin: 0%;
 }
-#p3 span{
+.discountedPrice{
     text-decoration: line-through;
 }
 .Club-member{
@@ -294,8 +384,14 @@ export default {
     font-size: 13px;
     font-weight: 400;
 }
-.Club-member a{
+.Club-member button{
     color: #000000;
+    border: none;
+    padding: 0%;
+    margin-left: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom:1px solid #000000 ;
 }
 #old-price {
   padding-right: 6px;
@@ -311,10 +407,23 @@ export default {
 }
 .model-images{
     display: flex;
-    flex-direction: row;
+    flex-direction: row; 
 }
-.model-images img{
+.list_of_img{
+    border: 2px solid transparent;
+    position: relative;
     margin-right: 10px;
+}
+.selected_image{
+    display: none;
+    position: absolute;
+    right: 3px;
+    top: 2px;
+}
+.color_choose{
+    max-width: 75px;
+    cursor: pointer;
+    float: left;
 }
 .kurta-color,.size-choose{
     font-weight: 600;
@@ -349,13 +458,14 @@ export default {
 .fit-info{
     display: inherit;
     margin-left: 10px;
-    border-radius: 18px;
-    height: 25px;
+    margin-top: 2px;
+    border-radius: 16px;
+    height: 22px;
     width: auto;
     background-color: white;
     padding-left: 13px;
     padding-right: 13px;
-    padding-top: 5px;
+    padding-top: 8px;
     border: 1px solid rgb(214, 211, 211);
 }
 .add-to-bag{
@@ -379,6 +489,7 @@ export default {
     font-size: 14px;
     cursor: pointer;
     border-radius: 10px;
+    border: none;
 }
 .fans{padding-bottom: 20px;
     border-bottom: 1px solid hsla(0,0%,77.3%,.47059);
@@ -386,6 +497,7 @@ export default {
 .fans-images{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 .fans-images img{
     margin-right: 5px;
@@ -423,11 +535,42 @@ export default {
     flex-wrap: wrap;
 }
 .pincode{
+    position: relative;
     border-radius: 5px;
-    background-color: #ECECEC ;
+    background-color: #ECECEC;
     height: 31px;
     padding: 10px;
-    font-size: 14px;
+    display: flex;
+}
+.pincode img{
+    width: 16px;
+}
+/* .pincode span{
+    font-weight: 600;
+    position: absolute;
+    bottom: 1%;
+    left: 11%;
+    font-size: 10px;
+    color: red;
+} */
+.pincode label{
+    position: absolute;
+    right: 0%;
+    text-align: right;
+    margin: 6px 10px;
+}
+.pincode input{
+    border: none;
+    background-color: #ECECEC;
+    margin-left: 6px;
+}
+ input::-webkit-outer-spin-button,
+ input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.pincode input:focus{
+     outline: none;
 }
 .mobile-location{
     display: none;
@@ -444,6 +587,15 @@ export default {
 .mobile-location span{
         margin-left: 15px;
         vertical-align: super;
+}
+.delivery-icons{
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+}
+.delivery-icons p{
+    margin: 0%;
+    padding-top: 7px;
 }
 .location{
      border-bottom: 1px solid hsla(0,0%,77.3%,.47059);
@@ -463,7 +615,42 @@ export default {
     font-size: 13px;
     margin-top: 6px;
 }
+.rating{
+    display: flex;
+    flex-direction: row;
+}
+.rating img{
+    margin-right: 5px;
+}
+.starCount{
+    position: relative;
+}
+.countTo_10{
+    margin-top: 4px;
+    margin-left: 4px;
+}
+.count_arrow{
+    position: absolute;
+    top: 35%;
+    width: 5px;
+}
 @media screen and (max-width:767px) {
+    #p3{
+        margin-top:5px;
+    }
+    .header-PDP{
+        display: none;
+    }
+    .mobile-pdp{
+        display:flex;
+        flex-direction: row;
+        position: absolute;
+        box-sizing: border-box;
+        top:0%;
+        z-index: 1;
+        background: transparent;
+
+    }
     .mobile-location{
         display: block;
     }
@@ -481,18 +668,23 @@ export default {
         float: right;
         margin:18px 10px;
     }
+    .input1 input:focus{
+        outline: none;
+    }
     .location{
         display: none;
     }
   .View-page{
       display: flex !important;
       flex-direction: column !important;
+      margin-left: 0%;
   }  
   .detail-container{
       margin: 0%;
   }
   .details{
       margin: 0%;
+      position: relative;
   }
   .add-to-bag{
       position: fixed;
@@ -505,17 +697,19 @@ export default {
       padding: 0%;
   }
   .add-to-bag button{
-      margin: 10px;
+        margin: 10px;
+        margin-left: 60px;
   }
   .add-to-bag img{
+        position: absolute;
         margin-top: 22px;
-        margin-left: 10px;
+        margin-left: 16px;
         height: 23px;
         width: 25px;
   }
   .product-heading{
       padding-left: 10px;
-      padding-top: 10px;
+      padding-top: 20px;
       color: #565656;
       font-weight: 400;
       font-size: 17px;
@@ -527,6 +721,9 @@ export default {
       padding-left: 10px;
       padding-right: 10px;
   }
+  .prices{
+      margin-top:6px;
+  }
   .shop,.fans{
       padding-left: 10px;   
   }
@@ -536,6 +733,11 @@ export default {
   }
   .mobile-location,.delivery-time,.shop,.fans,.Club-member{
       border-bottom: 15px solid hsla(0,0%,77.3%,.47059);
+  }
+  .rating{
+      position:absolute;
+      top:58px;
+      right: 15px;
   }
 
 }

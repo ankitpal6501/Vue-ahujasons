@@ -1,21 +1,21 @@
 <template>
     <div>
-    <div class="image-grp" v-if="gallery.length">
-        <VueSlickCarousel v-bind="slickOptions" >
-                <div  v-for="photo in gallery" :key="photo.image">
-                    <img :src="photo.image" alt="">
-                </div>
-        </VueSlickCarousel>
-        <img class="share-icon" src="../assets/Share.svg" alt="">
-    </div>
-    <div class="mobile-image" v-if="gallery.length">
-        <VueSlickCarousel v-bind="mobile_slickOptions" >
-                <div  v-for="photo in gallery" :key="photo.image">
-                    <img :src="photo.image" alt="">
-                </div>
-        </VueSlickCarousel>
-        <img class="share-icon1" src="../assets/Share.svg" alt="">
-    </div>
+        <div class="image-grp" v-if="gallery.length">
+            <VueSlickCarousel v-bind="slickOptions" >
+                    <div  v-for="photo in gallery" :key="photo.image">
+                        <img :src="photo.image" alt="">
+                    </div>
+            </VueSlickCarousel>
+           <a href=""><img class="share-icon" src="../assets/Share.svg" alt=""></a> 
+        </div>
+        <div class="mobile-image" v-if="gallery.length">
+            <VueSlickCarousel v-bind="mobile_slickOptions" >
+                    <div  v-for="photo in gallery" :key="photo.image">
+                        <img :src="photo.image" alt="">
+                    </div>
+            </VueSlickCarousel>
+            <img class="share-icon1" src="../assets/Share.svg" alt="">
+        </div>
     </div>
 </template>
 <script>
@@ -88,8 +88,8 @@ img{
     }
     .share-icon1{
         position: absolute;
-        bottom: -2%;
-        right: 1%;
+        bottom: -14px;
+        right: 10px;
         width: 40px;
 }
     

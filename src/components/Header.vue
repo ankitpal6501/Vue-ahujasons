@@ -212,6 +212,12 @@ export default{
     #headertag,#searchlogo,#resttag{
         margin-top: 50px;
     }
+    #searchlogo img{
+        width: 20px;
+    }
+    #searchlogo button{  
+        padding: 0%;
+    }
     #header a{
         padding: 14px;
     }
@@ -241,6 +247,9 @@ export default{
     #headertop{
         justify-content: center;
         background-color: #9d8b61
+    }
+    #headertop p{
+        height: auto;
     }
     #headerbottom{
         display: none;

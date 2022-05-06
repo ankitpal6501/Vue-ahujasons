@@ -116,6 +116,8 @@ export default {
   color: #565656;
 }
 #p2 {
+  display: flex;
+  flex-wrap: wrap;
   margin: 0;
   text-align: left;
   font-size: 14px;
@@ -163,6 +165,7 @@ export default {
     margin-bottom: 20px;
   }
   .heading{
+    border-top: 15px solid hsla(0,0%,77.3%,.47059);;
     text-align: start;
     font-size: 18px;
     padding-left:10px ;

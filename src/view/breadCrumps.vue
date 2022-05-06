@@ -13,7 +13,7 @@
             
         </div>
         <div>
-            <p>Home <img src="../assets/Arrow.svg" alt=""></p>
+            <p class="kurta-title">{{name}}</p>
             
         </div>
     </div>
@@ -25,6 +25,11 @@ export default {
         return{
             endPoint:""
         }
+    },
+    props:{
+        name:{
+            type:String
+        }
     }
 }
 </script>
@@ -34,7 +39,19 @@ export default {
     flex-direction: row;
     color: #565656;
     font-size: 12px;
+    margin-left: 20px;
+    font-family: Neue Helvetica, 'helveticRoman';
+}
+p img{
     margin-left: 10px;
-    font-family: Neue Helvetica, 'helveticRoman';;
+    margin-right: 10px;
+}
+.kurta-title{
+    color: #000000;
+}
+@media screen and (max-width:767px) {
+    .pathToPage{
+        display: none;
+    }
 }
 </style>

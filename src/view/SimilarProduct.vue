@@ -139,7 +139,7 @@ export default {
 .card {
   position: relative;
   margin-bottom: 40px;
-  margin: 0px 20px;
+  margin-left:20px
 }
 #img1 {
   display: block;
